@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Mecanos</string>
+    <string name="no_ingredients">No hay Ingredientes</string>
+    <string name="loading_ingredients">Cargando Ingredientes...</string>
+    <string name="loading_platos">Cargando Platos...</string>
+    <string name="search_platos_hint">Buscando Platos...</string>
+    <string name="cd_platos_list">Lista Platos</string>
+    <string name="cd_ingredients_list">Lista de ingredientes</string>
+    <string name="cd_plato_name">Nombre del plato</string>
+    <string name="cd_search_platos">Buscar plato</string>
+</resources>

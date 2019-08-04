@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="plato_price">Precio: $%.2f</string>
+    <string name="idingre">%s</string>
+    <dimen name="plato_item_min_height">100dp</dimen>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="ingredient"
+            type="com.example.mecanos.model.Ingredient"/>
+        <variable name="callback"
+            type="com.example.mecanos.ui.IngredientClickCallback"/>
+    </data>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/comment_light_background"
+        android:layout_marginStart="@dimen/ingredient_horizontal_margin"
+        android:layout_marginEnd="@dimen/ingredient_horizontal_margin"
+
+        android:minHeight="@dimen/ingredient_minHeight"
+        android:onClick="@{() ->  callback.onClick(ingredient)}"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:cardUseCompatPadding="true">
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ingredient_padding"
+                android:text="@{ingredient.nombre}"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
