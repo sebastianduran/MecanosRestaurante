@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "platos")
 public class PlatoEntity implements Plato {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     public int id;
     public String name;

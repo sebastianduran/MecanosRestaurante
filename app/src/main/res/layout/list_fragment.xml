@@ -9,52 +9,67 @@
             type="boolean" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cardview_light_background"
-        android:orientation="vertical">
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/item_horizontal_margin"
-            android:layout_marginEnd="@dimen/item_horizontal_margin"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:background="@color/cardview_light_background"
+            android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/platos_search_box"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/search_platos_hint"/>
+                android:layout_marginStart="@dimen/item_horizontal_margin"
+                android:layout_marginEnd="@dimen/item_horizontal_margin"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/platos_search_btn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:contentDescription="@string/cd_search_platos"
-                app:srcCompat="@drawable/ic_search_black_24dp"
-                tools:ignore="VectorDrawableCompat" />
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/platos_search_box"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/search_platos_hint"/>
+
+                 <ImageButton
+                    android:id="@+id/platos_search_btn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/cd_search_platos"
+                    app:srcCompat="@drawable/ic_search_black_24dp"
+                    tools:ignore="VectorDrawableCompat" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/loading_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/loading_platos"
+                android:textAlignment="center"
+                app:visibleGone="@{isLoading}"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/platos_list"
+                android:contentDescription="@string/cd_platos_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:visibleGone="@{!isLoading}"/>
 
         </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floating_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_add_black_24dp"
+            android:background="@color/colorAccent"
+            android:layout_margin="16dp"/>
+    </RelativeLayout>
 
-        <TextView
-            android:id="@+id/loading_tv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/loading_platos"
-            android:textAlignment="center"
-            app:visibleGone="@{isLoading}"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/platos_list"
-            android:contentDescription="@string/cd_platos_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:visibleGone="@{!isLoading}"/>
-
-    </LinearLayout>
 </layout>

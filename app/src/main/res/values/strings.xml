@@ -8,4 +8,8 @@
     <string name="cd_ingredients_list">Lista de ingredientes</string>
     <string name="cd_plato_name">Nombre del plato</string>
     <string name="cd_search_platos">Buscar plato</string>
+    <string name="name">Titulo</string>
+    <string name="description">Descripcion</string>
+    <string name="price">Precio</string>
+    <string name="cost">Costo</string>
 </resources>

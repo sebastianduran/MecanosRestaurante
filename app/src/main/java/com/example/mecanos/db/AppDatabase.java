@@ -77,11 +77,11 @@ public abstract class AppDatabase extends RoomDatabase {
                                 addDelay();
                                 // Generate the data for pre-population
                                 AppDatabase database = AppDatabase.getInstance(appContext, executors);
-                                List<PlatoEntity> platos = DataGenerator.generatePlatos();
-                                List<IngredientEntity> ingredients = DataGenerator.generateIngredients();
-                                List<PlatoIngredientEntity> pi = DataGenerator.generateIngredientsForPlatos();
+                                //List<PlatoEntity> platos = DataGenerator.generatePlatos();
+                                //List<IngredientEntity> ingredients = DataGenerator.generateIngredients();
+                                //List<PlatoIngredientEntity> pi = DataGenerator.generateIngredientsForPlatos();
 
-                                insertData(database, platos, ingredients, pi);
+                                //insertData(database, platos, ingredients, pi);
                                 // notify that the database was created and it's ready to be used
                                 database.setDatabaseCreated();
                             }

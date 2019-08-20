@@ -1,11 +1,15 @@
 package com.example.mecanos.ui;
 
 import androidx.databinding.DataBindingUtil;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mecanos.R;
 import com.example.mecanos.databinding.ListFragmentBinding;
@@ -57,6 +61,13 @@ public class PlatoListFragment extends Fragment {
                 } else {
                     subscribeUi(viewModel.searchPlatos("*" + query + "*"));
                 }
+            }
+        });
+        mBinding.floatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -9,9 +9,17 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 @Dao
 public interface PlatoDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(PlatoEntity plato);
+
+    @Update
+    void update(PlatoEntity plato);
+
     @Query("SELECT * FROM platos")
     LiveData<List<PlatoEntity>> loadAllPlatos();
 

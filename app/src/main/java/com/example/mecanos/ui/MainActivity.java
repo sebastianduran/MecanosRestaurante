@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .addToBackStack("product")
+                .addToBackStack("plato")
                 .replace(R.id.fragment_container,
                         platoFragment, null).commit();
     }
