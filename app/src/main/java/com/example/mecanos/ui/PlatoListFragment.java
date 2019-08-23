@@ -1,7 +1,9 @@
 package com.example.mecanos.ui;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -40,7 +42,7 @@ public class PlatoListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.list_fragment, container, false);
 
-        mPlatoAdapter = new PlatoAdapter(mPlatoClickCallback);
+        mPlatoAdapter = new PlatoAdapter(mPlatoClickCallback, mPlatoLongClickCallback);
         mBinding.platosList.setAdapter(mPlatoAdapter);
 
         return mBinding.getRoot();
@@ -66,8 +68,9 @@ public class PlatoListFragment extends Fragment {
         mBinding.floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditActivity.class);
-                startActivity(intent);
+                if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+                    ((MainActivity) getActivity()).add();
+                }
             }
         });
 
@@ -99,6 +102,48 @@ public class PlatoListFragment extends Fragment {
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
                 ((MainActivity) getActivity()).show(plato);
             }
+        }
+    };
+
+    private final PlatoLongClickCallback mPlatoLongClickCallback = new PlatoLongClickCallback() {
+        @Override
+        public boolean onLongClick(Plato plato) {
+            final PlatoListViewModel viewModel =
+                ViewModelProviders.of(getActivity()).get(PlatoListViewModel.class);
+            PlatoEntity entity = new PlatoEntity(plato);
+
+            new AlertDialog.Builder(getContext())
+                    .setTitle(plato.getName())
+                    .setMessage("Escoje la accion para el plato:  " + plato.getName())
+                    .setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            viewModel.delete(entity);
+                            Toast.makeText(getActivity(), "Elimnado", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("Editar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+                                ((MainActivity) getActivity()).edit(plato);
+                            }
+
+
+                             /*
+                            Intent intent = new Intent(getActivity(), EditActivity.class);
+                            intent.putExtra(EditFragment.EXTRA_ID,plato.getId());
+                            intent.putExtra(EditFragment.EXTRA_NAME,plato.getName());
+                            intent.putExtra(EditFragment.EXTRA_DESCRIPTION,plato.getDescription());
+                            intent.putExtra(EditFragment.EXTRA_PRECIO,plato.getPrice());
+                            intent.putExtra(EditFragment.EXTRA_COSTO,plato.getCosto());
+                            startActivity(intent);*/
+                        }
+                    })
+                    .show();
+            return true;
         }
     };
 }

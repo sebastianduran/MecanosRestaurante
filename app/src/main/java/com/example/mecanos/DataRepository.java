@@ -94,4 +94,36 @@ public class DataRepository {
             return null;
         }
     }
+
+    public void update(PlatoEntity plato){
+        new UpdatePlatoAsyncTask(platoDao).execute(plato);
+    }
+
+    private static class UpdatePlatoAsyncTask extends AsyncTask<PlatoEntity, Void, Void> {
+        private PlatoDao platoDao;
+        private UpdatePlatoAsyncTask(PlatoDao platoDao){
+            this.platoDao = platoDao;
+        }
+        @Override
+        protected Void doInBackground(PlatoEntity... platos) {
+            platoDao.update(platos[0]);
+            return null;
+        }
+    }
+
+    public void delete(PlatoEntity plato){
+        new DeletePlatoAsyncTask(platoDao).execute(plato);
+    }
+
+    private static class DeletePlatoAsyncTask extends AsyncTask<PlatoEntity, Void, Void> {
+        private PlatoDao platoDao;
+        private DeletePlatoAsyncTask(PlatoDao platoDao){
+            this.platoDao = platoDao;
+        }
+        @Override
+        protected Void doInBackground(PlatoEntity... platos) {
+            platoDao.delete(platos[0]);
+            return null;
+        }
+    }
 }

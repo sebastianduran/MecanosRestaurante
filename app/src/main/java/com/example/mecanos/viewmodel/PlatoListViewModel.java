@@ -42,4 +42,16 @@ public class PlatoListViewModel extends AndroidViewModel {
     public LiveData<List<PlatoEntity>> searchPlatos(String query) {
         return mRepository.searchPlatos(query);
     }
+
+
+    //CRUD
+    public void insert(PlatoEntity plato){
+        mRepository.insert(plato);
+    }
+    public void update(PlatoEntity plato){
+        mRepository.update(plato);
+    }
+    public void delete(PlatoEntity plato){
+        mRepository.delete(plato);
+    }
 }

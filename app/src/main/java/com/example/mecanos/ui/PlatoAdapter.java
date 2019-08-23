@@ -24,8 +24,13 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoViewHol
     @Nullable
     private final PlatoClickCallback mPlatoClickCallback;
 
-    public PlatoAdapter(@Nullable PlatoClickCallback clickCallback) {
+    @Nullable
+    private final PlatoLongClickCallback mPlatoLongClickCallback;
+
+    public PlatoAdapter(@Nullable PlatoClickCallback clickCallback, @Nullable PlatoLongClickCallback longClickCallback) {
+
         mPlatoClickCallback = clickCallback;
+        mPlatoLongClickCallback = longClickCallback;
         setHasStableIds(true);
     }
 
@@ -73,7 +78,8 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoViewHol
         PlatoItemBinding binding = DataBindingUtil
                 .inflate(LayoutInflater.from(parent.getContext()), R.layout.plato_item,
                         parent, false);
-        binding.setCallback(mPlatoClickCallback);
+        binding.setCallbackClick(mPlatoClickCallback);
+        binding.setCallbackLongClick(mPlatoLongClickCallback);
         return new PlatoViewHolder(binding);
     }
 

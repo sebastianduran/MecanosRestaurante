@@ -1,8 +1,8 @@
 package com.example.mecanos.ui;
 
+
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +12,14 @@ import com.example.mecanos.R;
 import com.example.mecanos.databinding.EditFragmentBinding;
 import com.example.mecanos.db.entity.PlatoEntity;
 import com.example.mecanos.viewmodel.PlatoCreateViewModel;
+import com.example.mecanos.viewmodel.PlatoUpdateViewModel;
 
-import org.w3c.dom.Text;
-
-import java.text.DecimalFormat;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 public class EditFragment extends Fragment {
@@ -29,11 +28,18 @@ public class EditFragment extends Fragment {
 
     private static final String KEY_PLATO_ID = "plato_id";
 
+    PlatoUpdateViewModel.Factory factory;
+    PlatoUpdateViewModel updateViewModel;
+    PlatoCreateViewModel createViewModel;
+
     private EditFragmentBinding mBinding;
+    int plato_id;
     String nombre ="";
     String descripcion ="";
     float precio = 0f;
     float costo = 0f;
+
+    boolean add = true;
 
     @Nullable
     @Override
@@ -46,15 +52,27 @@ public class EditFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final PlatoCreateViewModel viewModel =
-                ViewModelProviders.of(this).get(PlatoCreateViewModel.class);
+        PlatoEntity plato = new PlatoEntity();
 
+
+        if (getArguments()!= null){
+            factory = new PlatoUpdateViewModel.Factory(
+                    getActivity().getApplication(), getArguments().getInt(KEY_PLATO_ID));
+            updateViewModel = ViewModelProviders.of(this, factory )
+                    .get(PlatoUpdateViewModel.class);
+            subscribeToModel(updateViewModel);
+            plato_id = getArguments().getInt(KEY_PLATO_ID);
+            add = false;
+        }else {
+            createViewModel = ViewModelProviders.of(getActivity())
+                .get(PlatoCreateViewModel.class);
+            add = true;
+        }
 
 
         mBinding.platoSaveBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                PlatoEntity plato = new PlatoEntity();
 
                 if(TextUtils.isEmpty(mBinding.editTextName.toString())){
                     Toast.makeText(getActivity(),"Ingrese el nombre del plato",Toast.LENGTH_SHORT).show();
@@ -76,7 +94,22 @@ public class EditFragment extends Fragment {
                     plato.setDescription(descripcion);
                     plato.setPrice(precio);
                     plato.setCosto(costo);
-                    viewModel.insert(plato);
+                    
+
+                    if (add){
+                        createViewModel.insert(plato);
+                    }else{
+                        plato.setId(plato_id);
+                        updateViewModel.update(plato);
+                    }
+
+                    PlatoListFragment fragment = new PlatoListFragment();
+                    getFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack("plato")
+                            .replace(R.id.fragment_container,
+                                    fragment, null).commit();
+
                 }
 
             }
@@ -84,8 +117,19 @@ public class EditFragment extends Fragment {
         
     }
 
+    private void subscribeToModel(final PlatoUpdateViewModel model) {
+        // Observe product data
+        model.getObservablePlato().observe(this, new Observer<PlatoEntity>() {
+            @Override
+            public void onChanged(@Nullable PlatoEntity platoEntity) {
+                model.setPlato(platoEntity);
+                mBinding.setPlato(platoEntity);
+            }
+        });
+    }
 
-    public static EditFragment editPlato(int platoId){
+    /** Creates product fragment for specific product ID */
+    public static EditFragment forPlato(int platoId) {
         EditFragment fragment = new EditFragment();
         Bundle args = new Bundle();
         args.putInt(KEY_PLATO_ID, platoId);

@@ -3,6 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="plato"
+            type="com.example.mecanos.model.Plato"/>
+    </data>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -10,11 +15,11 @@
             android:background="@color/cardview_light_background"
             android:orientation="vertical">
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_marginTop="@dimen/form_margin_top"
                 android:hint="@string/name">
 
@@ -22,6 +27,7 @@
                     android:id="@+id/editTextName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{plato.name}"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -37,6 +43,7 @@
                     android:id="@+id/editTextDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{plato.description}"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
