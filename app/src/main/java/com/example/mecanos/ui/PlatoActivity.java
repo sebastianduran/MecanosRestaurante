@@ -2,6 +2,7 @@ package com.example.mecanos.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mecanos.R;
@@ -51,5 +52,12 @@ public class PlatoActivity extends AppCompatActivity {
                 .addToBackStack("plato")
                 .replace(R.id.fragment_container,
                         editFragment, null).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent setIntent = new Intent(PlatoActivity.this, MainActivity.class);
+        startActivity(setIntent);
+        finish();
     }
 }

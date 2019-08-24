@@ -7,4 +7,5 @@
     <dimen name="ingredient_padding">8dp</dimen>
     <dimen name="ingredient_minHeight">64dp</dimen>
     <dimen name="form_margin_top">10dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

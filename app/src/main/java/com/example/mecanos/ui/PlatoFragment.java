@@ -2,18 +2,17 @@ package com.example.mecanos.ui;
 
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.mecanos.R;
 import com.example.mecanos.databinding.PlatoFragmentBinding;
 import com.example.mecanos.db.entity.IngredientsByPlatoEntity;
 import com.example.mecanos.db.entity.PlatoEntity;
-import com.example.mecanos.model.Ingredient;
 import com.example.mecanos.model.IngredientsByPlato;
+import com.example.mecanos.ui.adapters.IngredientByPlatoAdapter;
+import com.example.mecanos.ui.clickcallback.IngredientByPlatoClickCallback;
 import com.example.mecanos.viewmodel.PlatoViewModel;
 
 import java.util.List;

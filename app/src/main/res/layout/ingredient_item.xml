@@ -5,7 +5,7 @@
         <variable name="ingredient"
             type="com.example.mecanos.model.Ingredient"/>
         <variable name="callback"
-            type="com.example.mecanos.ui.IngredientClickCallback"/>
+            type="com.example.mecanos.ui.clickcallback.IngredientClickCallback"/>
     </data>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

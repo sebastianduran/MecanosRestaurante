@@ -1,4 +1,4 @@
-package com.example.mecanos.ui;
+package com.example.mecanos.ui.adapters;
 
 import androidx.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.example.mecanos.R;
 import com.example.mecanos.databinding.IngredientItemBinding;
 import com.example.mecanos.model.Ingredient;
+import com.example.mecanos.ui.clickcallback.IngredientClickCallback;
 
 import java.util.List;
 import java.util.Objects;

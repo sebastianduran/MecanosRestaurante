@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-</FrameLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#961C00">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/center_view">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/platos_button"
+                android:src="@drawable/platos_icon"
+                android:scaleType="centerCrop"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/round_button"
+                />
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:id="@+id/center_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text=""
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_below="@id/center_view"
+            android:layout_centerHorizontal="true">
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ingredients_button"
+                android:src="@drawable/ingredients_icon"
+                android:scaleType="centerCrop"
+                android:background="@drawable/round_button"
+                android:layout_centerHorizontal="true"
+                android:layout_width="200dp"
+                android:layout_height="200dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

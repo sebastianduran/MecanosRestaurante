@@ -1,14 +1,15 @@
-package com.example.mecanos.ui;
+package com.example.mecanos.ui.adapters;
 
 import androidx.databinding.DataBindingUtil;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.mecanos.R;
 import com.example.mecanos.databinding.PlatoItemBinding;
 import com.example.mecanos.model.Plato;
+import com.example.mecanos.ui.clickcallback.PlatoClickCallback;
+import com.example.mecanos.ui.clickcallback.PlatoLongClickCallback;
 
 import java.util.List;
 import java.util.Objects;

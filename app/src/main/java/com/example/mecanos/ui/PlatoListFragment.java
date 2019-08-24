@@ -4,10 +4,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +15,9 @@ import com.example.mecanos.R;
 import com.example.mecanos.databinding.ListFragmentBinding;
 import com.example.mecanos.db.entity.PlatoEntity;
 import com.example.mecanos.model.Plato;
+import com.example.mecanos.ui.adapters.PlatoAdapter;
+import com.example.mecanos.ui.clickcallback.PlatoClickCallback;
+import com.example.mecanos.ui.clickcallback.PlatoLongClickCallback;
 import com.example.mecanos.viewmodel.PlatoListViewModel;
 
 import java.util.List;
@@ -69,7 +70,7 @@ public class PlatoListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-                    ((MainActivity) getActivity()).add();
+                    ((PlatoActivity) getActivity()).add();
                 }
             }
         });
@@ -100,7 +101,7 @@ public class PlatoListFragment extends Fragment {
         public void onClick(Plato plato) {
 
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-                ((MainActivity) getActivity()).show(plato);
+                ((PlatoActivity) getActivity()).show(plato);
             }
         }
     };
@@ -128,18 +129,10 @@ public class PlatoListFragment extends Fragment {
                         public void onClick(DialogInterface dialog, int which) {
 
                             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-                                ((MainActivity) getActivity()).edit(plato);
+                                ((PlatoActivity) getActivity()).edit(plato);
                             }
 
 
-                             /*
-                            Intent intent = new Intent(getActivity(), EditActivity.class);
-                            intent.putExtra(EditFragment.EXTRA_ID,plato.getId());
-                            intent.putExtra(EditFragment.EXTRA_NAME,plato.getName());
-                            intent.putExtra(EditFragment.EXTRA_DESCRIPTION,plato.getDescription());
-                            intent.putExtra(EditFragment.EXTRA_PRECIO,plato.getPrice());
-                            intent.putExtra(EditFragment.EXTRA_COSTO,plato.getCosto());
-                            startActivity(intent);*/
                         }
                     })
                     .show();

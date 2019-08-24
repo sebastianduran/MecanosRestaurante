@@ -1,13 +1,12 @@
-package com.example.mecanos.ui;
+package com.example.mecanos.ui.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.mecanos.R;
 import com.example.mecanos.databinding.IngredientPlatoItemBinding;
-import com.example.mecanos.db.entity.IngredientsByPlatoEntity;
 import com.example.mecanos.model.IngredientsByPlato;
+import com.example.mecanos.ui.clickcallback.IngredientByPlatoClickCallback;
 
 import java.util.List;
 import java.util.Objects;

@@ -1,4 +1,4 @@
-package com.example.mecanos.ui;
+package com.example.mecanos.ui.clickcallback;
 
 import com.example.mecanos.model.IngredientsByPlato;
 

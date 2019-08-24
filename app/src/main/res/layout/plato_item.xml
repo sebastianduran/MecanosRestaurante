@@ -5,9 +5,9 @@
         <variable name="plato"
             type="com.example.mecanos.model.Plato"/>
         <variable name="callback_click"
-            type="com.example.mecanos.ui.PlatoClickCallback"/>
+            type="com.example.mecanos.ui.clickcallback.PlatoClickCallback"/>
         <variable name="callback_long_click"
-            type="com.example.mecanos.ui.PlatoLongClickCallback"/>
+            type="com.example.mecanos.ui.clickcallback.PlatoLongClickCallback"/>
     </data>
 
     <androidx.cardview.widget.CardView
