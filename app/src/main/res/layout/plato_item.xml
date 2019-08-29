@@ -11,7 +11,7 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/plato_item_min_height"
         android:onClick="@{() -> callback_click.onClick(plato)}"

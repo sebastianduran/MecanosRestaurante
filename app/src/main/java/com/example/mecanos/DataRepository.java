@@ -3,6 +3,7 @@ package com.example.mecanos;
 import android.os.AsyncTask;
 
 import com.example.mecanos.db.AppDatabase;
+import com.example.mecanos.db.dao.IngredientDao;
 import com.example.mecanos.db.dao.PlatoDao;
 import com.example.mecanos.db.entity.IngredientEntity;
 import com.example.mecanos.db.entity.IngredientsByPlatoEntity;
@@ -19,6 +20,8 @@ public class DataRepository {
     private final AppDatabase mDatabase;
     private MediatorLiveData<List<PlatoEntity>> mObservablePlatos;
     private PlatoDao platoDao;
+    private MediatorLiveData<List<IngredientEntity>> mObservableIngredients;
+    private IngredientDao ingredientDao;
 
     // esto lo agrege sin saber si es necesario private MediatorLiveData<List<IngredientEntity>> mObservableIngredients;
 
@@ -60,6 +63,10 @@ public class DataRepository {
         return mDatabase.platoDao().loadPlato(platoId);
     }
 
+    public LiveData<List<IngredientEntity>> getIngredients(){
+        return mObservableIngredients;
+    }
+
     public LiveData<IngredientEntity> loadIngredient(final int ingredientId) {
         return mDatabase.ingredientDao().loadIngredient(ingredientId);
     }
@@ -76,6 +83,10 @@ public class DataRepository {
 
     public LiveData<List<PlatoEntity>> searchPlatos(String query) {
         return mDatabase.platoDao().searchAllPlatos(query);
+    }
+
+    public LiveData<List<IngredientEntity>> searchIngredients(String query) {
+        return mDatabase.ingredientDao().searchAllIngredients(query);
     }
 
     //*agregar
@@ -123,6 +134,39 @@ public class DataRepository {
         @Override
         protected Void doInBackground(PlatoEntity... platos) {
             platoDao.delete(platos[0]);
+            return null;
+        }
+    }
+
+    // CRUD ingredients
+    public void insertIngredient(IngredientEntity ingredientEntity){
+        new InsertIngredientAsyncTask(ingredientDao).execute(ingredientEntity);
+    }
+
+    private static class InsertIngredientAsyncTask extends AsyncTask<IngredientEntity, Void, Void> {
+        private IngredientDao ingredientDao;
+        private InsertIngredientAsyncTask(IngredientDao ingredientDao){
+            this.ingredientDao = ingredientDao;
+        }
+        @Override
+        protected Void doInBackground(IngredientEntity... ingredients) {
+            ingredientDao.insert(ingredients[0]);
+            return null;
+        }
+    }
+
+    public void deleteIngredient(IngredientEntity ingredient){
+        new DeleteIngredientAsyncTask(ingredientDao).execute(ingredient);
+    }
+
+    private static class DeleteIngredientAsyncTask extends AsyncTask<IngredientEntity, Void, Void> {
+        private IngredientDao ingredientDao;
+        private DeleteIngredientAsyncTask(IngredientDao ingredientDao){
+            this.ingredientDao = ingredientDao;
+        }
+        @Override
+        protected Void doInBackground(IngredientEntity... ingredients) {
+            ingredientDao.delete(ingredients[0]);
             return null;
         }
     }

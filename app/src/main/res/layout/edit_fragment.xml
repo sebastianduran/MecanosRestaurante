@@ -11,15 +11,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="500dp"
             android:background="@color/cardview_light_background"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="30dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="@dimen/form_margin_top"
                 android:hint="@string/name">
 
@@ -39,12 +39,11 @@
                 android:layout_marginTop="@dimen/form_margin_top"
                 android:hint="@string/description">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextDescription"
+                <AutoCompleteTextView
+                    android:id="@+id/category_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{plato.description}"
-                    android:inputType="text" />
+                    android:text="@{plato.description}"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

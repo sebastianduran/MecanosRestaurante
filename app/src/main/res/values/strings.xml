@@ -4,12 +4,14 @@
     <string name="loading_ingredients">Cargando Ingredientes...</string>
     <string name="loading_platos">Cargando Platos...</string>
     <string name="search_platos_hint">Buscando Platos...</string>
+    <string name="search_ingredients_hint">Buscando Ingredientes...</string>
     <string name="cd_platos_list">Lista Platos</string>
     <string name="cd_ingredients_list">Lista de ingredientes</string>
     <string name="cd_plato_name">Nombre del plato</string>
     <string name="cd_search_platos">Buscar plato</string>
+    <string name="cd_search_ingredients">Buscar ingredients</string>
     <string name="name">Titulo</string>
-    <string name="description">Descripcion</string>
+    <string name="description">Categoria</string>
     <string name="price">Precio</string>
     <string name="cost">Costo</string>
     <string name="title_activity_ingredient">IngredientActivity</string>

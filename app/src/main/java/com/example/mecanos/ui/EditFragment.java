@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.mecanos.R;
@@ -54,6 +56,17 @@ public class EditFragment extends Fragment {
 
         PlatoEntity plato = new PlatoEntity();
 
+        String[] CATEGORIES = new String[] {"Sandwich", "Empanada", "Bebidas", "Otros"};
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(
+                        getContext(),
+                        R.layout.dropdown_menu_popup_item,
+                        CATEGORIES);
+
+        AutoCompleteTextView editTextFilledExposedDropdown =
+                getView().findViewById(R.id.category_dropdown);
+        editTextFilledExposedDropdown.setAdapter(adapter);
 
         if (getArguments()!= null){
             factory = new PlatoUpdateViewModel.Factory(
@@ -84,8 +97,11 @@ public class EditFragment extends Fragment {
                     Toast.makeText(getActivity(),"Ingrese un precio",Toast.LENGTH_SHORT).show();
                 }
                 else{
+
+
+
                     nombre = mBinding.editTextName.getText().toString();
-                    descripcion = mBinding.editTextDescription.getText().toString();
+                    descripcion = mBinding.categoryDropdown.getText().toString();
 
                     precio = Float.parseFloat(mBinding.editTextPreci.getText().toString().trim());
                     costo = Float.parseFloat(mBinding.editTextCost.getText().toString().trim());

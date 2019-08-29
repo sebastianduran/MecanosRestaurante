@@ -26,17 +26,17 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/platos_search_box"
+                    android:id="@+id/ingredients_search_box"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="@string/search_platos_hint"/>
+                    android:hint="@string/search_ingredients_hint"/>
 
-                 <ImageButton
-                    android:id="@+id/platos_search_btn"
+                <ImageButton
+                    android:id="@+id/ingredient_search_btn"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:contentDescription="@string/cd_search_platos"
+                    android:contentDescription="@string/cd_search_ingredients"
                     app:srcCompat="@drawable/ic_search_black_24dp"
                     tools:ignore="VectorDrawableCompat" />
 
@@ -47,13 +47,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|center_horizontal"
-                android:text="@string/loading_platos"
+                android:text="@string/loading_ingredients"
                 android:textAlignment="center"
                 app:visibleGone="@{isLoading}"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/platos_list"
-                android:contentDescription="@string/cd_platos_list"
+                android:id="@+id/ingredients_list"
+                android:contentDescription="@string/cd_ingredients_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:spanCount="3"
@@ -62,7 +62,7 @@
 
         </LinearLayout>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floating_button"
+            android:id="@+id/fb_add_ingredient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"

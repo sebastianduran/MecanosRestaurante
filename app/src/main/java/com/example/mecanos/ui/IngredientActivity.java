@@ -2,6 +2,7 @@ package com.example.mecanos.ui;
 
 import android.os.Bundle;
 
+import com.example.mecanos.model.Ingredient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -19,6 +20,25 @@ public class IngredientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient);
 
+        if (savedInstanceState == null) {
+            IngredientListFragment fragment = new IngredientListFragment();
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.ingredient_fragment_container, fragment, IngredientListFragment.TAG).commit();
+        }
+
     }
+
+    public void show(Ingredient ingredient) {
+
+        IngredientFragment ingredientFragment = IngredientFragment.forIngredient(ingredient.getId());
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack("ingredient")
+                .replace(R.id.ingredient_fragment_container,
+                        ingredientFragment, null).commit();
+    }
+
 
 }

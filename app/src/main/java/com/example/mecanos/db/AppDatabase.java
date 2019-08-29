@@ -8,6 +8,7 @@ import com.example.mecanos.db.dao.IngredientDao;
 import com.example.mecanos.db.dao.PlatoDao;
 import com.example.mecanos.db.dao.PlatoIngredientDao;
 import com.example.mecanos.db.entity.IngredientEntity;
+import com.example.mecanos.db.entity.IngredientFtsEntity;
 import com.example.mecanos.db.entity.PlatoEntity;
 import com.example.mecanos.db.entity.PlatoFtsEntity;
 import com.example.mecanos.db.entity.PlatoIngredientEntity;
@@ -29,8 +30,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Database(entities = {PlatoEntity.class,
                       PlatoFtsEntity.class,
                       IngredientEntity.class,
+                      IngredientFtsEntity.class,
                       PlatoIngredientEntity.class},
-        version = 2)
+        version = 2,
+        exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -134,6 +137,10 @@ public abstract class AppDatabase extends RoomDatabase {
                     + "`name` TEXT, `description` TEXT, content=`platos`)");
             database.execSQL("INSERT INTO platosFts (`rowid`, `name`, `description`) "
                     + "SELECT `id`, `name`, `description` FROM platos");
+            database.execSQL("CREATE VIRTUAL TABLE IF NOT EXISTS `ingredientFts` USING FTS4("
+                    + "`nombre` TEXT, content=`ingredients`)");
+            database.execSQL("INSERT INTO ingredientFts (`rowid`, `name`) "
+                    + "SELECT `id`, `nombre` FROM ingredients");
 
         }
     };
