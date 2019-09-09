@@ -15,20 +15,23 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
 public class IngredientListViewModel extends AndroidViewModel {
-
     private final DataRepository mRepository;
+
 
     private final MediatorLiveData<List<IngredientEntity>> mObservableIngredients;
 
-    public IngredientListViewModel(@NonNull Application application) {
+    public IngredientListViewModel(Application application) {
         super(application);
-        mRepository = ((BasicApp) application).getRepository();
 
         mObservableIngredients = new MediatorLiveData<>();
+
         mObservableIngredients.setValue(null);
 
-        /* Asociaciones */
+        mRepository = ((BasicApp) application).getRepository();
         LiveData<List<IngredientEntity>> ingredients = mRepository.getIngredients();
+
+
+        mObservableIngredients.addSource(ingredients, mObservableIngredients::setValue);
     }
 
     public LiveData<List<IngredientEntity>> getIngredients(){

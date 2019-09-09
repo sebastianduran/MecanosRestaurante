@@ -43,7 +43,8 @@
                     android:id="@+id/category_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{plato.description}"/>
+                    android:text="@{plato.description}"
+                    android:inputType="text"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,6 +59,7 @@
                     android:id="@+id/editTextPreci"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{Float.toString(plato.price)}"
                     android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -73,6 +75,7 @@
                     android:id="@+id/editTextCost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{Float.toString(plato.costo)}"
                     android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>

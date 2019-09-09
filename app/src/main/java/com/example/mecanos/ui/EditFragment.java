@@ -110,7 +110,6 @@ public class EditFragment extends Fragment {
                     plato.setDescription(descripcion);
                     plato.setPrice(precio);
                     plato.setCosto(costo);
-                    
 
                     if (add){
                         createViewModel.insert(plato);

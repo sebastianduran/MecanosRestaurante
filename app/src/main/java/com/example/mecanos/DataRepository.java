@@ -28,6 +28,7 @@ public class DataRepository {
     private DataRepository(final AppDatabase database) {
         mDatabase = database;
         mObservablePlatos = new MediatorLiveData<>();
+        mObservableIngredients = new MediatorLiveData<>();
 
         mObservablePlatos.addSource(mDatabase.platoDao().loadAllPlatos(),
                 platoEntities -> {
@@ -36,9 +37,18 @@ public class DataRepository {
                     }
                 });
 
+        mObservableIngredients.addSource(mDatabase.ingredientDao().loadAllIngredients(),
+                ingredientEntities -> {
+                    if (mDatabase.getDatabaseCreated().getValue() != null){
+                        mObservableIngredients.postValue(ingredientEntities);
+                    }
+                });
+
         //Esta parte se necesita para insertar plato
         //es independiente a las anteriores instrucciones solo utiliza la definicion de database
         platoDao = database.platoDao();
+        ingredientDao = database.ingredientDao();
+
     }
 
     public static DataRepository getInstance(final AppDatabase database) {
@@ -106,6 +116,23 @@ public class DataRepository {
         }
     }
 
+    // CRUD ingredients
+    public void insertIngredient(IngredientEntity ingredient){
+        new InsertIngredientAsyncTask(ingredientDao).execute(ingredient);
+    }
+
+    private static class InsertIngredientAsyncTask extends AsyncTask<IngredientEntity, Void, Void> {
+        private IngredientDao ingredientDao;
+        private InsertIngredientAsyncTask(IngredientDao ingredientDao){
+            this.ingredientDao = ingredientDao;
+        }
+        @Override
+        protected Void doInBackground(IngredientEntity... ingredients) {
+            ingredientDao.insert(ingredients[0]);
+            return null;
+        }
+    }
+
     public void update(PlatoEntity plato){
         new UpdatePlatoAsyncTask(platoDao).execute(plato);
     }
@@ -138,19 +165,20 @@ public class DataRepository {
         }
     }
 
-    // CRUD ingredients
-    public void insertIngredient(IngredientEntity ingredientEntity){
-        new InsertIngredientAsyncTask(ingredientDao).execute(ingredientEntity);
+
+
+    public void updateIngredient(IngredientEntity ingredientEntity){
+        new UpdateIngredientAsyncTask(ingredientDao).execute(ingredientEntity);
     }
 
-    private static class InsertIngredientAsyncTask extends AsyncTask<IngredientEntity, Void, Void> {
+    private static class UpdateIngredientAsyncTask extends AsyncTask<IngredientEntity, Void, Void> {
         private IngredientDao ingredientDao;
-        private InsertIngredientAsyncTask(IngredientDao ingredientDao){
+        private UpdateIngredientAsyncTask(IngredientDao ingredientDao){
             this.ingredientDao = ingredientDao;
         }
         @Override
         protected Void doInBackground(IngredientEntity... ingredients) {
-            ingredientDao.insert(ingredients[0]);
+            ingredientDao.update(ingredients[0]);
             return null;
         }
     }

@@ -83,4 +83,13 @@ public class IngredientEntity implements Ingredient {
 
     }
 
+    public IngredientEntity(Ingredient ingredient){
+        this.id = ingredient.getId();
+        this.nombre = ingredient.getNombre();
+        this.proveedor = ingredient.getProveedor();
+        this.unidades = ingredient.getUnidades();
+        this.existencias = ingredient.getExistencias();
+        this.diaCompra = ingredient.getDiaCompra();
+    }
+
 }

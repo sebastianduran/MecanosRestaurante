@@ -28,17 +28,34 @@ public class IngredientActivity extends AppCompatActivity {
         }
 
     }
-
+/*
     public void show(Ingredient ingredient) {
 
-        IngredientFragment ingredientFragment = IngredientFragment.forIngredient(ingredient.getId());
+        IngredientListFragment ingredientFragment = IngredientListFragment.forIngredient(ingredient.getId());
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack("ingredient")
                 .replace(R.id.ingredient_fragment_container,
                         ingredientFragment, null).commit();
+    }*/
+
+    public void edit(Ingredient ingredient){
+        IngredientEditFragment editFragment = IngredientEditFragment.forIngredient(ingredient.getId());
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack("ingredient")
+                .replace(R.id.ingredient_fragment_container,
+                        editFragment, null).commit();
     }
 
-
+    public void add() {
+        IngredientEditFragment editFragment = new IngredientEditFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack("ingredient")
+                .replace(R.id.ingredient_fragment_container,
+                        editFragment, null).commit();
+    }
 }

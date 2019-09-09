@@ -23,7 +23,7 @@ public class PlatoListViewModel extends AndroidViewModel {
 
         mObservablePlatos = new MediatorLiveData<>();
         // set by default null, until we get data from the database.
-        mObservablePlatos.setValue(null);
+        mObservablePlatos.setValue(null );
 
         mRepository = ((BasicApp) application).getRepository();
         LiveData<List<PlatoEntity>> platos = mRepository.getPlatos();

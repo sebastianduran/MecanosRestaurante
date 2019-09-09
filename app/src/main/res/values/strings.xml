@@ -15,4 +15,6 @@
     <string name="price">Precio</string>
     <string name="cost">Costo</string>
     <string name="title_activity_ingredient">IngredientActivity</string>
+    <string name="existencias">Existencias</string>
+    <string name="unidades">Unidades de medida</string>
 </resources>

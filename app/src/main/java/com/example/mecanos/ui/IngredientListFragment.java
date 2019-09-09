@@ -35,17 +35,14 @@ public class IngredientListFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.ingredient_list_fragment, container, false );
 
         mIngredientAdapter = new IngredientAdapter(mIngredientClickCallback);
         mBinding.ingredientsList.setAdapter(mIngredientAdapter);
 
         return mBinding.getRoot();
-
-
     }
 
     @Override
@@ -58,25 +55,38 @@ public class IngredientListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Editable query = mBinding.ingredientsSearchBox.getText();
-                if(query == null){
+                if(query == null || query.toString().isEmpty()){
                     subscribeUi(viewModel.getIngredients());
                 }else{
                     subscribeUi(viewModel.searchIngredient("*"+query+"*"));
                 }
             }
         });
+        mBinding.fbAddIngredient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+                    ((IngredientActivity) getActivity()).add();
+                }
+            }
+        });
+
+        subscribeUi(viewModel.getIngredients());
     }
 
     private void subscribeUi(LiveData<List<IngredientEntity>> liveData){
+
         liveData.observe(this, new Observer<List<IngredientEntity>>() {
             @Override
-            public void onChanged(List<IngredientEntity> ingredientEntities) {
+            public void onChanged(@Nullable List<IngredientEntity> ingredientEntities) {
                 if(ingredientEntities != null){
                     mBinding.setIsLoading(false);
                     mIngredientAdapter.setIngredientList(ingredientEntities);
                 }else {
                     mBinding.setIsLoading(true);
                 }
+
+
                 mBinding.executePendingBindings();
             }
         });
@@ -85,11 +95,11 @@ public class IngredientListFragment extends Fragment {
     private final IngredientClickCallback mIngredientClickCallback = new IngredientClickCallback() {
         @Override
         public void onClick(Ingredient ingredient) {
-
+/*
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
                 ((IngredientActivity) getActivity()).show(ingredient);
             }
-
+*/
         }
     };
 }
