@@ -12,8 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.IngredientActivity"
-            android:label="@string/title_activity_ingredient"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.PlatoActivity" />
         <activity android:name=".ui.EditActivity" />
         <activity android:name=".ui.MainActivity">

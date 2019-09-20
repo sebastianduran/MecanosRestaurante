@@ -18,6 +18,7 @@ public class PlatoActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             PlatoListFragment fragment = new PlatoListFragment();
 
+
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, fragment, PlatoListFragment.TAG).commit();
         }
@@ -31,7 +32,7 @@ public class PlatoActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack("plato")
-                .replace(R.id.fragment_container,
+                .replace(R.id.edit_plato_container,
                         platoFragment, null).commit();
     }
 
@@ -41,7 +42,7 @@ public class PlatoActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack("plato")
-                .replace(R.id.fragment_container,
+                .replace(R.id.edit_plato_container,
                         editFragment, null).commit();
     }
 
@@ -50,7 +51,7 @@ public class PlatoActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack("plato")
-                .replace(R.id.fragment_container,
+                .replace(R.id.edit_plato_container,
                         editFragment, null).commit();
     }
 

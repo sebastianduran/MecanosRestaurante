@@ -37,8 +37,6 @@ public class PlatoViewModel extends AndroidViewModel {
         mObservableIngreditentsByPlato = repository.loadPlatoIngredients(mPlatoId);
     }
 
-
-
     /**
      * Expose the LiveData Comments query so the UI can observe it.
      */

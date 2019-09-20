@@ -1,6 +1,7 @@
 package com.example.mecanos.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import com.example.mecanos.R;
 import com.example.mecanos.databinding.EditFragmentBinding;
 import com.example.mecanos.db.entity.PlatoEntity;
+import com.example.mecanos.model.Plato;
+import com.example.mecanos.ui.adapters.IngredientByPlatoAdapter;
 import com.example.mecanos.viewmodel.PlatoCreateViewModel;
 import com.example.mecanos.viewmodel.PlatoUpdateViewModel;
 
@@ -30,11 +33,14 @@ public class EditFragment extends Fragment {
 
     private static final String KEY_PLATO_ID = "plato_id";
 
+    private EditFragmentBinding editFragmentBinding;
+
+    private IngredientByPlatoAdapter mIngredientByPlatoAdapter;
+
     PlatoUpdateViewModel.Factory factory;
     PlatoUpdateViewModel updateViewModel;
     PlatoCreateViewModel createViewModel;
 
-    private EditFragmentBinding mBinding;
     int plato_id;
     String nombre ="";
     String descripcion ="";
@@ -45,9 +51,10 @@ public class EditFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.edit_fragment, container, false);
-        return mBinding.getRoot();
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        editFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.edit_fragment, container, false);
+        return editFragmentBinding.getRoot();
     }
 
     @Override
@@ -68,6 +75,7 @@ public class EditFragment extends Fragment {
                 getView().findViewById(R.id.category_dropdown);
         editTextFilledExposedDropdown.setAdapter(adapter);
 
+
         if (getArguments()!= null){
             factory = new PlatoUpdateViewModel.Factory(
                     getActivity().getApplication(), getArguments().getInt(KEY_PLATO_ID));
@@ -83,28 +91,28 @@ public class EditFragment extends Fragment {
         }
 
 
-        mBinding.platoSaveBtn.setOnClickListener(new View.OnClickListener(){
+        editFragmentBinding.platoSaveBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
-                if(TextUtils.isEmpty(mBinding.editTextName.toString())){
+                if(TextUtils.isEmpty(editFragmentBinding.editTextName.toString())){
                     Toast.makeText(getActivity(),"Ingrese el nombre del plato",Toast.LENGTH_SHORT).show();
                 }
-                if(TextUtils.isEmpty(mBinding.editTextName.toString())){
+                if(TextUtils.isEmpty(editFragmentBinding.editTextName.toString())){
                     Toast.makeText(getActivity(),"Ingrese una description",Toast.LENGTH_SHORT).show();
                 }
-                else if (TextUtils.isEmpty(mBinding.editTextPreci.getText().toString().trim())){
+                else if (TextUtils.isEmpty(editFragmentBinding.editTextPreci.getText().toString().trim())){
                     Toast.makeText(getActivity(),"Ingrese un precio",Toast.LENGTH_SHORT).show();
                 }
                 else{
 
 
 
-                    nombre = mBinding.editTextName.getText().toString();
-                    descripcion = mBinding.categoryDropdown.getText().toString();
+                    nombre = editFragmentBinding.editTextName.getText().toString();
+                    descripcion = editFragmentBinding.categoryDropdown.getText().toString();
 
-                    precio = Float.parseFloat(mBinding.editTextPreci.getText().toString().trim());
-                    costo = Float.parseFloat(mBinding.editTextCost.getText().toString().trim());
+                    precio = Float.parseFloat(editFragmentBinding.editTextPreci.getText().toString().trim());
+                    costo = Float.parseFloat(editFragmentBinding.editTextCost.getText().toString().trim());
 
                     plato.setName(nombre);
                     plato.setDescription(descripcion);
@@ -118,12 +126,9 @@ public class EditFragment extends Fragment {
                         updateViewModel.update(plato);
                     }
 
-                    PlatoListFragment fragment = new PlatoListFragment();
-                    getFragmentManager()
-                            .beginTransaction()
-                            .addToBackStack("plato")
-                            .replace(R.id.fragment_container,
-                                    fragment, null).commit();
+                    Intent intent = new Intent(getActivity(), PlatoActivity.class);
+                    startActivity(intent);
+
 
                 }
 
@@ -138,7 +143,7 @@ public class EditFragment extends Fragment {
             @Override
             public void onChanged(@Nullable PlatoEntity platoEntity) {
                 model.setPlato(platoEntity);
-                mBinding.setPlato(platoEntity);
+                editFragmentBinding.setPlato(platoEntity);
             }
         });
     }

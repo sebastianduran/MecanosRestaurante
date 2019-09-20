@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.LayoutInflater;
@@ -69,9 +70,10 @@ public class PlatoListFragment extends Fragment {
         mBinding.floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-                    ((PlatoActivity) getActivity()).add();
-                }
+                startActivity(new Intent(getActivity(), EditActivity.class));
+                /*if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+                    ((EditActivity) getActivity()).addplato(); esto no se puede hacer por que esta dentro de platoactivity
+                }*/
             }
         });
 
@@ -100,9 +102,9 @@ public class PlatoListFragment extends Fragment {
         @Override
         public void onClick(Plato plato) {
 
-            if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+            /*if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
                 ((PlatoActivity) getActivity()).show(plato);
-            }
+            }*/
         }
     };
 
