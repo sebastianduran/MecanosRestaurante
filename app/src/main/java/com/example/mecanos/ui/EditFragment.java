@@ -1,6 +1,7 @@
 package com.example.mecanos.ui;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import com.example.mecanos.model.Plato;
 import com.example.mecanos.ui.adapters.IngredientByPlatoAdapter;
 import com.example.mecanos.viewmodel.PlatoCreateViewModel;
 import com.example.mecanos.viewmodel.PlatoUpdateViewModel;
+import com.example.mecanos.viewmodel.PlatoViewModel;
 
 
 import androidx.annotation.NonNull;
@@ -35,11 +37,15 @@ public class EditFragment extends Fragment {
 
     private EditFragmentBinding editFragmentBinding;
 
+    private OnEditFragmentListener mCallback;
+
     private IngredientByPlatoAdapter mIngredientByPlatoAdapter;
 
     PlatoUpdateViewModel.Factory factory;
     PlatoUpdateViewModel updateViewModel;
     PlatoCreateViewModel createViewModel;
+    PlatoViewModel.Factory platoFactory;
+    PlatoViewModel platoViewModel;
 
     int plato_id;
     String nombre ="";
@@ -106,8 +112,6 @@ public class EditFragment extends Fragment {
                 }
                 else{
 
-
-
                     nombre = editFragmentBinding.editTextName.getText().toString();
                     descripcion = editFragmentBinding.categoryDropdown.getText().toString();
 
@@ -121,20 +125,28 @@ public class EditFragment extends Fragment {
 
                     if (add){
                         createViewModel.insert(plato);
+                        createViewModel.getLastPlatoLive().observe(EditFragment.this, plato -> {
+                            int lastInsertedRowId = plato.getId();
+                            mCallback.messageFromEditFragment(lastInsertedRowId);
+                        });
+                        Toast.makeText(getActivity(), "Guardado", Toast.LENGTH_SHORT).show();
                     }else{
                         plato.setId(plato_id);
                         updateViewModel.update(plato);
                     }
 
-                    Intent intent = new Intent(getActivity(), PlatoActivity.class);
-                    startActivity(intent);
-
-
                 }
 
             }
         });
-        
+
+        editFragmentBinding.platoFinishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PlatoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void subscribeToModel(final PlatoUpdateViewModel model) {
@@ -156,6 +168,25 @@ public class EditFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    //comunicacion con el otro fragment
+    public interface OnEditFragmentListener {
+        void messageFromEditFragment (int platoId);
+    }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnEditFragmentListener){
+            mCallback = (OnEditFragmentListener) context;
+        }else {
+            throw new RuntimeException(context.toString()
+                    + " se debe implementar OnEditFragmentListener");
+        }
+    }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallback = null;
+    }
 }

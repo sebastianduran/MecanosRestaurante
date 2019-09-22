@@ -70,7 +70,7 @@ public class PlatoFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        PlatoViewModel.Factory factory = new PlatoViewModel.Factory(
+        /*PlatoViewModel.Factory factory = new PlatoViewModel.Factory(
                 getActivity().getApplication(), getArguments().getInt(KEY_PLATO_ID));
 
         final PlatoViewModel model = ViewModelProviders.of(this, factory)
@@ -78,7 +78,7 @@ public class PlatoFragment extends Fragment {
 
         mBinding.setPlatoViewModel(model);
 
-        subscribeToModel(model);
+        subscribeToModel(model);*/
     }
 
     private void subscribeToModel(final PlatoViewModel model) {

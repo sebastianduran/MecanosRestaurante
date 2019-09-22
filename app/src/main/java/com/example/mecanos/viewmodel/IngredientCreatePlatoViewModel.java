@@ -4,30 +4,29 @@ import android.app.Application;
 
 import com.example.mecanos.BasicApp;
 import com.example.mecanos.DataRepository;
+import com.example.mecanos.db.entity.IngredientsByPlatoEntity;
 import com.example.mecanos.db.entity.PlatoEntity;
+import com.example.mecanos.db.entity.PlatoIngredientEntity;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-public class PlatoCreateViewModel extends AndroidViewModel {
+public class IngredientCreatePlatoViewModel extends AndroidViewModel {
     private final DataRepository mRepository;
 
-    public PlatoCreateViewModel(@NonNull Application application) {
+
+
+    public IngredientCreatePlatoViewModel(@NonNull Application application) {
         super(application);
 
         mRepository = ((BasicApp) application).getRepository();
 
     }
 
-    public void insert(PlatoEntity plato){
-        mRepository.insert(plato);
+    public void insert(PlatoIngredientEntity platoIngredientEntity){
+        mRepository.insertIngredientPlato(platoIngredientEntity);
     }
 
-    public LiveData<PlatoEntity> getLastPlatoLive(){
-        return mRepository.getLastPlatoLive();
-    }
+
 }

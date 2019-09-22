@@ -24,6 +24,9 @@ public interface PlatoDao {
     @Delete
     void delete(PlatoEntity plato);
 
+    @Query("SELECT * FROM platos ORDER BY id DESC LIMIT 1")
+    LiveData<PlatoEntity> getLastPlatoLive();
+
     @Query("SELECT * FROM platos")
     LiveData<List<PlatoEntity>> loadAllPlatos();
 

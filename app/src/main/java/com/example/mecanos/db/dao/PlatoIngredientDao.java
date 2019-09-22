@@ -20,6 +20,9 @@ public interface PlatoIngredientDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<PlatoIngredientEntity> platoIngredient);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(PlatoIngredientEntity platoIngredient);
+
     @Query("SELECT platosingredients.id, platos.name as dish,ingredients.nombre as product, platosingredients.cantidad as cant " +
             "FROM platosingredients " +
             "INNER JOIN ingredients  ON ingredients.id = platosingredients.pi_ingredientId " +

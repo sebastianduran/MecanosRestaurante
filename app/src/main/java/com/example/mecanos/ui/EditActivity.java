@@ -7,7 +7,11 @@ import android.os.Bundle;
 import com.example.mecanos.R;
 import com.example.mecanos.model.Plato;
 
-public class EditActivity extends AppCompatActivity {
+public class EditActivity extends AppCompatActivity implements EditFragment.OnEditFragmentListener{
+
+    EditFragment editFragment;
+    PlatoFragment platoFragment;
+    IngredientListFragment ingredientListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,13 +19,13 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
 
         if(savedInstanceState == null){
-            EditFragment editFragment = new EditFragment();
-            //PlatoFragment platoFragment = new PlatoFragment();
-            IngredientListFragment ingredientListFragment = new IngredientListFragment();
+            editFragment = new EditFragment();
+            platoFragment = new PlatoFragment();
+            ingredientListFragment = new IngredientListFragment();
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.edit_plato_container, editFragment, EditFragment.TAG)
-                    //.add(R.id.ingredient_plato_container, platoFragment, PlatoFragment.TAG)
+                    .add(R.id.ingredient_plato_container, platoFragment, PlatoFragment.TAG)
                     .add(R.id.ingredient_list_container, ingredientListFragment, IngredientListFragment.TAG)
                     .commit();
         }
@@ -51,7 +55,10 @@ public class EditActivity extends AppCompatActivity {
                         ingredientListFragment, null).commit();*/
     }
 
-
+    @Override
+    public void messageFromEditFragment(int platoId) {
+        ingredientListFragment.gotPlatoId(platoId);
+    }
 
 
 }
