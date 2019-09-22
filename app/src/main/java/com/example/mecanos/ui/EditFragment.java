@@ -81,8 +81,9 @@ public class EditFragment extends Fragment {
                 getView().findViewById(R.id.category_dropdown);
         editTextFilledExposedDropdown.setAdapter(adapter);
 
+        plato_id = getActivity().getIntent().getExtras().getInt(KEY_PLATO_ID);
 
-        if (getArguments()!= null){
+        if (plato_id != -1){
             factory = new PlatoUpdateViewModel.Factory(
                     getActivity().getApplication(), getArguments().getInt(KEY_PLATO_ID));
             updateViewModel = ViewModelProviders.of(this, factory )

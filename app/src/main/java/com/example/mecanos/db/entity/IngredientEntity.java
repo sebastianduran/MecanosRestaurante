@@ -16,7 +16,7 @@ import androidx.room.TypeConverters;
 @TypeConverters(DateConverter.class)
 public class IngredientEntity implements Ingredient {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     public int id;
     public String nombre;

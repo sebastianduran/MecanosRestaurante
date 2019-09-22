@@ -51,6 +51,7 @@ public class DataRepository {
         //es independiente a las anteriores instrucciones solo utiliza la definicion de database
         platoDao = database.platoDao();
         ingredientDao = database.ingredientDao();
+        platoIngredientDao = database.platoIngredientDao();
 
     }
 

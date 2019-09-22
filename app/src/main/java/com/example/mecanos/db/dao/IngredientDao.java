@@ -17,7 +17,7 @@ import androidx.room.Update;
 @Dao
 public interface IngredientDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     void insert(IngredientEntity ingredient);
 
     @Update

@@ -33,6 +33,7 @@ import androidx.lifecycle.ViewModelProviders;
 public class PlatoListFragment extends Fragment {
 
     public static final String TAG = "PlatoListFragment";
+    public static final String PLATO_KEY_ID = "plato_id";
 
     private PlatoAdapter mPlatoAdapter;
 
@@ -70,7 +71,9 @@ public class PlatoListFragment extends Fragment {
         mBinding.floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), EditActivity.class));
+                Intent intent = new Intent(getActivity(), EditActivity.class);
+                intent.putExtra(PLATO_KEY_ID, -1);
+                startActivity(intent);
                 /*if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
                     ((EditActivity) getActivity()).addplato(); esto no se puede hacer por que esta dentro de platoactivity
                 }*/
@@ -102,6 +105,9 @@ public class PlatoListFragment extends Fragment {
         @Override
         public void onClick(Plato plato) {
 
+            Intent intent = new Intent(getActivity(), EditActivity.class);
+            intent.putExtra(PLATO_KEY_ID, plato.getId());
+            startActivity(intent);
             /*if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
                 ((PlatoActivity) getActivity()).show(plato);
             }*/

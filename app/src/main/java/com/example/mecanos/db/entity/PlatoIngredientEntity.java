@@ -25,7 +25,7 @@ import androidx.room.PrimaryKey;
 
 public class PlatoIngredientEntity implements PlatoIngredient {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     public int id;
 
