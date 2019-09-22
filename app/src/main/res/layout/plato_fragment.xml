@@ -21,9 +21,6 @@
         android:background="@color/cardview_light_background"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/plato_item"
-            app:plato="@{platoViewModel.plato}"/>
 
         <FrameLayout
             android:layout_width="match_parent"

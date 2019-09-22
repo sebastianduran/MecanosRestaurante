@@ -10,20 +10,24 @@ import com.example.mecanos.R;
 import com.example.mecanos.databinding.EditFragmentBinding;
 import com.example.mecanos.databinding.IngredientListFragmentBinding;
 import com.example.mecanos.databinding.PlatoFragmentBinding;
+import com.example.mecanos.db.entity.IngredientEntity;
 import com.example.mecanos.db.entity.IngredientsByPlatoEntity;
 import com.example.mecanos.db.entity.PlatoEntity;
 import com.example.mecanos.model.Ingredient;
 import com.example.mecanos.model.IngredientsByPlato;
+import com.example.mecanos.model.PlatoIngredient;
 import com.example.mecanos.ui.adapters.IngredientAdapter;
 import com.example.mecanos.ui.adapters.IngredientByPlatoAdapter;
 import com.example.mecanos.ui.clickcallback.IngredientByPlatoClickCallback;
 import com.example.mecanos.ui.clickcallback.IngredientClickCallback;
+import com.example.mecanos.viewmodel.IngredientViewModel;
 import com.example.mecanos.viewmodel.PlatoViewModel;
 
 import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -37,6 +41,11 @@ public class PlatoFragment extends Fragment {
 
     private IngredientByPlatoAdapter mIngredientByPlatoAdapter;
 
+    PlatoViewModel.Factory platoFactory;
+    PlatoViewModel platoViewModel;
+
+    int plato_id;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -46,7 +55,7 @@ public class PlatoFragment extends Fragment {
 
 
         // Create and set the adapter for the RecyclerView.
-        mIngredientByPlatoAdapter = new IngredientByPlatoAdapter(mIngredientByPlatoClickCallback);
+        mIngredientByPlatoAdapter = new IngredientByPlatoAdapter(mIngredientClickCallback);
         mBinding.ingredientbyplatoList.setAdapter(mIngredientByPlatoAdapter);
 
         return mBinding.getRoot();
@@ -70,6 +79,20 @@ public class PlatoFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        PlatoEntity plato = new PlatoEntity();
+
+        plato_id = getActivity().getIntent().getExtras().getInt(KEY_PLATO_ID);
+        platoFactory = new PlatoViewModel.Factory(
+                getActivity().getApplication(), plato_id
+        );
+        platoViewModel = ViewModelProviders.of(this, platoFactory).get(PlatoViewModel.class);
+
+        if (plato_id != -1){
+            mBinding.setIsLoading(true);
+        }else {
+            subscribeUi(platoViewModel.getIngredientsbyPlato(plato_id));
+        }
+
         /*PlatoViewModel.Factory factory = new PlatoViewModel.Factory(
                 getActivity().getApplication(), getArguments().getInt(KEY_PLATO_ID));
 
@@ -81,19 +104,18 @@ public class PlatoFragment extends Fragment {
         subscribeToModel(model);*/
     }
 
-    private void subscribeToModel(final PlatoViewModel model) {
-
-        // Observe comments
-        model.getIngredientsbyPlato().observe(this, new Observer<List<IngredientsByPlatoEntity>>() {
+    private void subscribeUi(LiveData<List<IngredientEntity>> liveData) {
+        // Update the list when the data changes
+        liveData.observe(this, new Observer<List<IngredientEntity>>() {
             @Override
-            public void onChanged(@Nullable List<IngredientsByPlatoEntity> ingredientsByPlatoEntities) {
-                if (ingredientsByPlatoEntities != null) {
+            public void onChanged(@Nullable List<IngredientEntity> ingredientsByPlato) {
+                if (ingredientsByPlato != null) {
                     mBinding.setIsLoading(false);
-                    mIngredientByPlatoAdapter.setIngredientByPlatoList(ingredientsByPlatoEntities);
-
-                } else {
-                    mBinding.setIsLoading(true);
+                    mIngredientByPlatoAdapter.setIngredientByPlatoList(ingredientsByPlato);
                 }
+                // espresso does not know how to wait for data binding's loop so we execute changes
+                // sync.
+                mBinding.executePendingBindings();
             }
         });
     }

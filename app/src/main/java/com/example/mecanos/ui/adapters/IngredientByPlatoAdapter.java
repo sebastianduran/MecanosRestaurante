@@ -5,8 +5,10 @@ import android.view.ViewGroup;
 
 import com.example.mecanos.R;
 import com.example.mecanos.databinding.IngredientPlatoItemBinding;
+import com.example.mecanos.model.Ingredient;
 import com.example.mecanos.model.IngredientsByPlato;
 import com.example.mecanos.ui.clickcallback.IngredientByPlatoClickCallback;
+import com.example.mecanos.ui.clickcallback.IngredientClickCallback;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,16 +20,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class IngredientByPlatoAdapter extends RecyclerView.Adapter<IngredientByPlatoAdapter.IngredientByPlatoViewHolder> {
 
-    private List<? extends IngredientsByPlato> mIngredientByPlatoList;
+    private List<? extends Ingredient> mIngredientByPlatoList;
 
     @Nullable
-    private final IngredientByPlatoClickCallback mIngredientByPlatoClickCallback;
+    private final IngredientClickCallback mIngredientByPlatoClickCallback;
 
-    public IngredientByPlatoAdapter (@Nullable IngredientByPlatoClickCallback ingredientByPlatoClickCallback){
+    public IngredientByPlatoAdapter (@Nullable IngredientClickCallback ingredientByPlatoClickCallback){
         mIngredientByPlatoClickCallback = ingredientByPlatoClickCallback;
     }
 
-    public void setIngredientByPlatoList (final List<? extends IngredientsByPlato> IngredientsByPlato){
+    public void setIngredientByPlatoList (final List<? extends Ingredient> IngredientsByPlato){
         if (mIngredientByPlatoList == null){
             mIngredientByPlatoList = IngredientsByPlato;
             notifyItemRangeChanged(0, IngredientsByPlato.size());
@@ -45,20 +47,20 @@ public class IngredientByPlatoAdapter extends RecyclerView.Adapter<IngredientByP
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    IngredientsByPlato oldItem = mIngredientByPlatoList.get(oldItemPosition);
-                    IngredientsByPlato newItem = IngredientsByPlato.get(newItemPosition);
+                    Ingredient oldItem = mIngredientByPlatoList.get(oldItemPosition);
+                    Ingredient newItem = IngredientsByPlato.get(newItemPosition);
                     return oldItem.getId() == newItem.getId();
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    IngredientsByPlato oldItem = mIngredientByPlatoList.get(oldItemPosition);
-                    IngredientsByPlato newItem = IngredientsByPlato.get(newItemPosition);
+                    Ingredient oldItem = mIngredientByPlatoList.get(oldItemPosition);
+                    Ingredient newItem = IngredientsByPlato.get(newItemPosition);
                     return oldItem.getId() == newItem.getId()
-                            && Objects.equals(oldItem.getIngredientNombre(), newItem.getIngredientNombre())
-                            && Objects.equals(oldItem.getPlatoNombre(), newItem.getPlatoNombre())
-                            && Float.compare(oldItem.getCantidadIngredient(), newItem.getCantidadIngredient()) ==0
-                            && Objects.equals(oldItem.getCompra(), newItem.getCompra());
+                            && Objects.equals(oldItem.getNombre(), newItem.getNombre())
+                            && Objects.equals(oldItem.getProveedor(), newItem.getProveedor())
+                            && Float.compare(oldItem.getExistencias(), newItem.getExistencias()) ==0
+                            && Objects.equals(oldItem.getUnidades(), newItem.getUnidades());
                 }
             });
             mIngredientByPlatoList = IngredientsByPlato;

@@ -94,7 +94,7 @@ public class DataRepository {
     }
 
     //* Repository para la tabla que relaciona platos e ingredientes*/
-    public LiveData<List<IngredientsByPlatoEntity>> loadPlatoIngredients(final int platoId) {
+    public LiveData<List<IngredientEntity>> loadPlatoIngredients(final int platoId) {
         return mDatabase.platoIngredientDao().loadPlatoIngredients(platoId);
     }
 

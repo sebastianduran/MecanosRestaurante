@@ -6,6 +6,7 @@ import androidx.databinding.ObservableField;
 
 import com.example.mecanos.BasicApp;
 import com.example.mecanos.DataRepository;
+import com.example.mecanos.db.entity.IngredientEntity;
 import com.example.mecanos.db.entity.IngredientsByPlatoEntity;
 import com.example.mecanos.db.entity.PlatoEntity;
 
@@ -26,7 +27,7 @@ public class PlatoViewModel extends AndroidViewModel {
     private final int mPlatoId;
 
 
-    private LiveData<List<IngredientsByPlatoEntity>> mObservableIngreditentsByPlato;
+    private LiveData<List<IngredientEntity>> mObservableIngreditentsByPlato;
 
     public PlatoViewModel(@NonNull Application application, DataRepository repository,
                           final int platoId) {
@@ -41,7 +42,7 @@ public class PlatoViewModel extends AndroidViewModel {
      * Expose the LiveData Comments query so the UI can observe it.
      */
 
-    public LiveData<List<IngredientsByPlatoEntity>> getIngredientsbyPlato() {
+    public LiveData<List<IngredientEntity>> getIngredientsbyPlato(int platoID) {
         return mObservableIngreditentsByPlato;
     }
 

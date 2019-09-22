@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="ingredientsByPlato"
-            type="com.example.mecanos.model.IngredientsByPlato"/>
+            type="com.example.mecanos.model.Ingredient"/>
         <variable name="callback"
-            type="com.example.mecanos.ui.clickcallback.IngredientByPlatoClickCallback"/>
+            type="com.example.mecanos.ui.clickcallback.IngredientClickCallback"/>
     </data>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             <TextView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/ingredient_padding"
-                android:text="@{@string/idingre(ingredientsByPlato.ingredientNombre)}"/>
+                android:text="@{@string/idingre(ingredientsByPlato.nombre)}"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </layout>

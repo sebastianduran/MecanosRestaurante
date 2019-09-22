@@ -13,9 +13,15 @@
         <activity
             android:name=".ui.IngredientActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ui.PlatoActivity" />
-        <activity android:name=".ui.EditActivity" />
-        <activity android:name=".ui.MainActivity">
+        <activity
+            android:name=".ui.PlatoActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.EditActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

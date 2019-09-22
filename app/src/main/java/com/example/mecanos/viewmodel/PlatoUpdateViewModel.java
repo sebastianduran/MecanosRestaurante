@@ -46,7 +46,7 @@ public class PlatoUpdateViewModel extends AndroidViewModel {
     }
 
     public void update(PlatoEntity plato){
-        mRepository.insert(plato);
+        mRepository.update(plato);
     }
 
 

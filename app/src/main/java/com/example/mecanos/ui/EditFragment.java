@@ -85,11 +85,10 @@ public class EditFragment extends Fragment {
 
         if (plato_id != -1){
             factory = new PlatoUpdateViewModel.Factory(
-                    getActivity().getApplication(), getArguments().getInt(KEY_PLATO_ID));
+                    getActivity().getApplication(), plato_id);
             updateViewModel = ViewModelProviders.of(this, factory )
                     .get(PlatoUpdateViewModel.class);
             subscribeToModel(updateViewModel);
-            plato_id = getArguments().getInt(KEY_PLATO_ID);
             add = false;
         }else {
             createViewModel = ViewModelProviders.of(getActivity())
