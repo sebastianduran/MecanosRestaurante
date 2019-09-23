@@ -72,7 +72,7 @@ public class IngredientViewModel extends AndroidViewModel {
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new PlatoViewModel(mApplication, mRepository, mIngredientId);
+            return (T) new PlatoViewModel(mApplication);
         }
     }
 }

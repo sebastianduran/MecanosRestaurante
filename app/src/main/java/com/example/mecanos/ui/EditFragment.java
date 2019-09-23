@@ -39,13 +39,9 @@ public class EditFragment extends Fragment {
 
     private OnEditFragmentListener mCallback;
 
-    private IngredientByPlatoAdapter mIngredientByPlatoAdapter;
-
     PlatoUpdateViewModel.Factory factory;
     PlatoUpdateViewModel updateViewModel;
     PlatoCreateViewModel createViewModel;
-    PlatoViewModel.Factory platoFactory;
-    PlatoViewModel platoViewModel;
 
     int plato_id;
     String nombre ="";
@@ -90,6 +86,7 @@ public class EditFragment extends Fragment {
                     .get(PlatoUpdateViewModel.class);
             subscribeToModel(updateViewModel);
             add = false;
+            mCallback.messageFromEditFragment(plato_id);
         }else {
             createViewModel = ViewModelProviders.of(getActivity())
                 .get(PlatoCreateViewModel.class);
@@ -133,6 +130,7 @@ public class EditFragment extends Fragment {
                     }else{
                         plato.setId(plato_id);
                         updateViewModel.update(plato);
+
                     }
 
                 }

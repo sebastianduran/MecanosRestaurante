@@ -1,5 +1,6 @@
 package com.example.mecanos.ui;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -28,6 +29,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -135,8 +137,10 @@ public class IngredientListFragment extends Fragment {
                                             "Cantidad " +String.valueOf(usedCant)+
                                                     " plato id: "+ String.valueOf(platoId)+
                                             "ingredient id: "+String.valueOf(ingredient.getId()));
-                                    //ingredientCreatePlatoViewModel.insert(platoIngredientEntity);
-
+                                    ingredientCreatePlatoViewModel.insert(platoIngredientEntity);
+                                    if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+                                        ((EditActivity) getActivity()).refreshPlatoFragment();
+                                    }
                                 }
                             }
                         })
@@ -159,5 +163,6 @@ public class IngredientListFragment extends Fragment {
     public void gotPlatoId (int Id){
         platoId = Id;
     }
+
 
 }

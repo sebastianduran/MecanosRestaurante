@@ -61,4 +61,13 @@ public class EditActivity extends AppCompatActivity implements EditFragment.OnEd
     }
 
 
+    public void refreshPlatoFragment(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack("plato")
+                .replace( R.id.ingredient_plato_container,
+                        platoFragment, null).commit();
+    }
+
+
 }

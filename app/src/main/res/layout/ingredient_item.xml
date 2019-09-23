@@ -13,7 +13,6 @@
         app:cardBackgroundColor="@color/comment_light_background"
         android:layout_marginStart="@dimen/ingredient_horizontal_margin"
         android:layout_marginEnd="@dimen/ingredient_horizontal_margin"
-
         android:minHeight="@dimen/ingredient_minHeight"
         android:onClick="@{() ->  callback.onClick(ingredient)}"
         android:orientation="horizontal"

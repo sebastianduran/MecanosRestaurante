@@ -2,6 +2,7 @@ package com.example.mecanos.ui;
 
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,6 @@ public class PlatoFragment extends Fragment {
 
     private IngredientByPlatoAdapter mIngredientByPlatoAdapter;
 
-    PlatoViewModel.Factory platoFactory;
     PlatoViewModel platoViewModel;
 
     int plato_id;
@@ -61,13 +61,6 @@ public class PlatoFragment extends Fragment {
         return mBinding.getRoot();
     }
 
-    private final IngredientByPlatoClickCallback mIngredientByPlatoClickCallback = new IngredientByPlatoClickCallback() {
-        @Override
-        public void onClick(IngredientsByPlato ingredientsByPlato) {
-
-        }
-    };
-
     private final IngredientClickCallback mIngredientClickCallback = new IngredientClickCallback() {
         @Override
         public void onClick(Ingredient ingredient) {
@@ -79,29 +72,18 @@ public class PlatoFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        PlatoEntity plato = new PlatoEntity();
-
         plato_id = getActivity().getIntent().getExtras().getInt(KEY_PLATO_ID);
-        platoFactory = new PlatoViewModel.Factory(
-                getActivity().getApplication(), plato_id
-        );
-        platoViewModel = ViewModelProviders.of(this, platoFactory).get(PlatoViewModel.class);
 
-        if (plato_id != -1){
+        Log.d(KEY_PLATO_ID, String.valueOf(plato_id));
+
+        if (plato_id == -1){
             mBinding.setIsLoading(true);
         }else {
+
+            platoViewModel = ViewModelProviders.of(this).get(PlatoViewModel.class);
             subscribeUi(platoViewModel.getIngredientsbyPlato(plato_id));
         }
 
-        /*PlatoViewModel.Factory factory = new PlatoViewModel.Factory(
-                getActivity().getApplication(), getArguments().getInt(KEY_PLATO_ID));
-
-        final PlatoViewModel model = ViewModelProviders.of(this, factory)
-                .get(PlatoViewModel.class);
-
-        mBinding.setPlatoViewModel(model);
-
-        subscribeToModel(model);*/
     }
 
     private void subscribeUi(LiveData<List<IngredientEntity>> liveData) {

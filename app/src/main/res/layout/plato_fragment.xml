@@ -15,16 +15,12 @@
             type="com.example.mecanos.viewmodel.PlatoViewModel"/>
     </data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cardview_light_background"
-        android:orientation="vertical">
-
-
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:background="@color/cardview_light_background"
+            android:gravity="start">
 
             <TextView
                 android:layout_width="match_parent"
@@ -33,21 +29,16 @@
                 android:text="@string/loading_ingredients"
                 app:visibleGone="@{isLoading}"/>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/ingredient_list_wrapper">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ingredientbyplato_list"
                     android:contentDescription="@string/cd_ingredients_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="3"
                     app:visibleGone="@{!isLoading}"/>
-            </FrameLayout>
-        </FrameLayout>
 
+        </RelativeLayout>
 
-    </LinearLayout>
 </layout>
